@@ -28,7 +28,13 @@ func main() {
 	m.Get("/signin", SigninRoute)
 	m.Get("/signup", SignupRoute)
 
-	m.Run()
+	host := os.Getenv("HOST")
+	port := os.Getenv("HTTP_PLATFORM_PORT")
+	if len(port) == 0 {
+		port = "3000"
+	}
+
+	m.RunOnAddr(host + ":" + port)
 }
 
 func IndexRouter(r render.Render) {
